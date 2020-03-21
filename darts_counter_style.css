@@ -4,15 +4,6 @@
 h1{
   color: black;
 }
-h2{
-  color: red;
-  font-size: 40px;
-}
-h3{
-  color: red;
-  font-size: 50px;
-}
-
 
 /*
   The style for the display of the players and the score
@@ -25,7 +16,8 @@ h3{
 }
 .grid-item-display {
   background-color: rgba(197, 199, 197, 0.8);
-  font-size: 30px;
+  font-size: 40px;
+  color: red;
   text-align: center;
 }
 /*
