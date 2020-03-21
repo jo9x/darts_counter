@@ -1,0 +1,60 @@
+/*
+  The style for all the used fonts
+*/
+h1{
+  color: black;
+}
+h2{
+  color: red;
+  font-size: 40px;
+}
+h3{
+  color: red;
+  font-size: 50px;
+}
+
+
+/*
+  The style for the display of the players and the score
+*/
+.grid-container-display {
+  display: grid;
+  grid-template-columns: auto auto;
+  background-color: #0d0c0c;
+  padding: 5px;
+}
+.grid-item-display {
+  background-color: rgba(197, 199, 197, 0.8);
+  font-size: 30px;
+  text-align: center;
+}
+/*
+  The style for the section hosting the input buttons
+*/
+.grid-container-buttons {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: #0d0c0c;
+  padding: 5px;
+}
+.grid-item-buttons {
+  background-color: rgba(51, 47, 47, 0.9);
+  padding: 10px;
+  font-size: 30px;
+  text-align: center;
+}
+
+/*
+  The style for the buttons itselfs
+*/
+button{
+  display: block;
+  height:50px;
+  width: 100%;
+  background-color: rgba(70,255,0,0.6);
+  font-size: 25px;
+  border-radius: 8px;
+  outline: none;
+  border-color:#204014
+
+}
