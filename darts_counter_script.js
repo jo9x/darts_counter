@@ -1,6 +1,11 @@
 var throwCounter = 0;
 var roundCounter = 0;
 var factor = 1;
+var lastScoreOne = 0;
+var lastScoreTwo = 0;
+var avgOne = 0;
+var avgTwo = 0;
+var startScore = 301;
 //the main function called at page load
 function playGame() {
 prepareGame();
@@ -10,7 +15,7 @@ addListenerToButtons();
 function prepareGame(){
   var playerOne = "Jonas";
   var playerTwo = "Jakob";
-  var initialScore = "10";
+  var initialScore = startScore.toString();
   document.getElementById('playerOne').innerHTML = playerOne;
   document.getElementById('playerTwo').innerHTML = playerTwo;
   document.getElementById('scoreOne').innerHTML = initialScore;
@@ -35,6 +40,12 @@ function addListenerToButtons(){
 function reduceScore(buttonID){
     //keeping track of the rounds played
     if((throwCounter%3==0)&&(throwCounter!=0)){
+      //save score after every round for restore after throwing to many points
+      if (calculateCurrPlayer()=='scoreOne'){
+        lastScoreOne = parseInt(document.getElementById(calculateCurrPlayer()).innerHTML);
+      }else{
+        lastScoreTwo = parseInt(document.getElementById(calculateCurrPlayer()).innerHTML);
+      }
       throwCounter=0;
       roundCounter ++;
     }
@@ -44,6 +55,7 @@ function reduceScore(buttonID){
       var score = (parseInt(document.getElementById(calculateCurrPlayer()).innerHTML))-(value * factor);
       document.getElementById(calculateCurrPlayer()).innerHTML = score.toString();
       checkForWin();
+      checkForBust();
       factor = 1;
       throwCounter ++;
     }
@@ -61,5 +73,21 @@ function checkForWin(){
   if((parseInt(document.getElementById(calculateCurrPlayer()).innerHTML))==0){
     alert("This player has won the game "+calculateCurrPlayer());
     location.reload();
+  }
+}
+
+//check if player has busted
+function checkForBust(){
+  var player="";
+  if((parseInt(document.getElementById(calculateCurrPlayer()).innerHTML))<0){
+    if(calculateCurrPlayer()=='scoreOne'){
+      player = lastScoreOne;
+    }else{
+    player = lastScoreTwo;
+    }
+    var diffToNextRound = throwCounter%3;
+    throwCounter=throwCounter+(2-diffToNextRound);
+    alert("Busted!!! Next Player.")
+    document.getElementById(calculateCurrPlayer()).innerHTML = player.toString();
   }
 }
