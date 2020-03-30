@@ -20,7 +20,6 @@ function prepareGame(){
   document.getElementById('playerTwo').innerHTML = playerTwo;
   document.getElementById('scoreOne').innerHTML = initialScore;
   document.getElementById('scoreTwo').innerHTML = initialScore;
-  alert(bauer);
 }
 
 //add Event Listener to all buttons
@@ -64,9 +63,16 @@ function reduceScore(buttonID){
 
 //return the correct player based on the current round
 function calculateCurrPlayer(){
-  var currentRound = roundCounter;
-  var players = ['scoreOne','scoreTwo'];
-  return players[currentRound%2];
+  //var currentRound = roundCounter;
+  //var players = ['scoreOne','scoreTwo'];
+  //return players[currentRound%2];
+  var ret = '';
+  if(currentPlayer=="playerOne"){
+    ret = 'scoreOne';
+  }else{
+    ret = 'scoreTwo';
+  }
+  return ret;
 }
 
 //check if the player has won the Game

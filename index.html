@@ -9,26 +9,35 @@
 <script src = "/socket.io/socket.io.js"></script>
 <script src= "https://code.jquery.com/jquery-1.11.1.js"></script>
 <script type="text/javascript">
-var bauer = "BABabababa";
+  var currentPlayer = "playerOne";
 // This part is vor synchronizing the score between clients
   $(function(){
     var socket = io();
     document.getElementById('bConf').addEventListener("click",function(e){updateScore(e)});
 
     function updateScore(e){
-      var currentScoreOne = document.getElementById('scoreOne').innerHTML;
-      var currentScoreTwo = document.getElementById('scoreTwo').innerHTML;
-      var scoreSync = currentScoreOne+"//"+currentScoreTwo;
-      //alert(scoreSync);
-      alert(bauer);
+      var playerScore = '';
+      if(currentPlayer=="playerOne"){
+        playerScore = 'scoreOne';
+      }else{playerScore = 'scoreTwo';}
+      var currentScore = document.getElementById(playerScore).innerHTML;
       e.preventDefault();
-      socket.emit('score change',scoreSync);
+      socket.emit('score change',currentScore);
       return false;
     }
 
     socket.on('score change',function(msg){
-      document.getElementById('scoreOne').innerHTML =  msg.split('//')[0];
-      document.getElementById('scoreTwo').innerHTML = msg.split('//')[1];
+      var playerScore = '';
+      if(currentPlayer=="playerOne"){
+        playerScore = 'scoreOne';
+        currentPlayer = "playerTwo";
+      }else{
+        playerScore = 'scoreTwo';
+        currentPlayer = "playerOne";
+      }
+      document.getElementById(playerScore).innerHTML = msg;
+
+
     });
 
     socket.on('user join',function(msg){
