@@ -30,14 +30,16 @@
       var playerScore = '';
       if(currentPlayer=="playerOne"){
         playerScore = 'scoreOne';
+        document.getElementById('playerTwo').style.color = "red";
+        document.getElementById('playerOne').style.color = "green";
         currentPlayer = "playerTwo";
       }else{
         playerScore = 'scoreTwo';
+        document.getElementById('playerOne').style.color = "red";
+        document.getElementById('playerTwo').style.color = "green";
         currentPlayer = "playerOne";
       }
       document.getElementById(playerScore).innerHTML = msg;
-
-
     });
 
     socket.on('user join',function(msg){

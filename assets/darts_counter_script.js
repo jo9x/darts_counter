@@ -5,7 +5,7 @@ var lastScoreOne = 0;
 var lastScoreTwo = 0;
 var avgOne = 0;
 var avgTwo = 0;
-var startScore = 301;
+var startScore = 501;
 //the main function called at page load
 function playGame() {
 prepareGame();
@@ -14,12 +14,13 @@ addListenerToButtons();
 //set initial Values for Gameboard
 function prepareGame(){
   var playerOne = "Jonas";
-  var playerTwo = "Jakob";
+  var playerTwo = "Spieler2";
   var initialScore = startScore.toString();
   document.getElementById('playerOne').innerHTML = playerOne;
   document.getElementById('playerTwo').innerHTML = playerTwo;
   document.getElementById('scoreOne').innerHTML = initialScore;
   document.getElementById('scoreTwo').innerHTML = initialScore;
+  document.getElementById('playerOne').style.color="red";
 }
 
 //add Event Listener to all buttons
@@ -78,8 +79,8 @@ function calculateCurrPlayer(){
 //check if the player has won the Game
 function checkForWin(){
   if((parseInt(document.getElementById(calculateCurrPlayer()).innerHTML))==0){
-    alert("This player has won the game "+calculateCurrPlayer());
-    location.reload();
+    alert("Congratulations! You won the Game! ");
+    //location.reload();
   }
 }
 
