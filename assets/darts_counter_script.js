@@ -5,7 +5,11 @@ var lastScoreOne = 0;
 var lastScoreTwo = 0;
 var avgOne = 0;
 var avgTwo = 0;
-var startScore = 501;
+var startScore = 30;
+
+//used for calculating the average
+var throwsOne = 0;
+var throwsTwo = 0;
 //the main function called at page load
 function playGame() {
 prepareGame();
@@ -55,18 +59,18 @@ function reduceScore(buttonID){
       var value = parseInt(buttonID.replace('b',''));
       var score = (parseInt(document.getElementById(calculateCurrPlayer()).innerHTML))-(value * factor);
       document.getElementById(calculateCurrPlayer()).innerHTML = score.toString();
-      checkForWin();
+      calculateAverage();
       checkForBust();
+      checkForWin();
+
+
       factor = 1;
       throwCounter ++;
     }
 }
 
-//return the correct player based on the current round
+//return the correct players score html element based on the current round
 function calculateCurrPlayer(){
-  //var currentRound = roundCounter;
-  //var players = ['scoreOne','scoreTwo'];
-  //return players[currentRound%2];
   var ret = '';
   if(currentPlayer=="playerOne"){
     ret = 'scoreOne';
@@ -79,8 +83,14 @@ function calculateCurrPlayer(){
 //check if the player has won the Game
 function checkForWin(){
   if((parseInt(document.getElementById(calculateCurrPlayer()).innerHTML))==0){
+    if(calculateCurrPlayer() == 'scoreOne'){
+      let avg = ((startScore/throwsOne)*3);
+      document.getElementById('averageOne').innerHTML = "Avg: "+avg.toFixed(2);
+    }else{
+      let avg = ((startScore/throwsTwo)*3);
+      document.getElementById('averageTwo').innerHTML = "Avg: "+avg.toFixed(2);
+    }
     alert("Congratulations! You won the Game! ");
-    //location.reload();
   }
 }
 
@@ -90,12 +100,45 @@ function checkForBust(){
   if((parseInt(document.getElementById(calculateCurrPlayer()).innerHTML))<0){
     if(calculateCurrPlayer()=='scoreOne'){
       player = lastScoreOne;
-    }else{
+      //pushes counter to next 3
+      if(throwsOne % 3 != 0){
+        throwsOne = throwsOne + (3-(throwsOne%3));
+      }
+      let avg = ((startScore - player)/(throwsOne))*3;
+      let avgRound = avg.toFixed(2);
+      document.getElementById('averageOne').innerHTML = "Avg: " + avgRound.toString();
+    }
+    else{
     player = lastScoreTwo;
+      if(throwsTwo % 3 != 0){
+      throwsTwo = throwsTwo + (3-(throwsTwo%3));
+      }
+      let avg = ((startScore - player)/(throwsTwo))*3;
+      let avgRound = avg.toFixed(2);
+      document.getElementById('averageTwo').innerHTML = "Avg: " + avgRound.toString();
     }
     var diffToNextRound = throwCounter%3;
     throwCounter=throwCounter+(2-diffToNextRound);
     alert("Busted!!! Next Player.")
     document.getElementById(calculateCurrPlayer()).innerHTML = player.toString();
   }
+}
+
+function calculateAverage(){
+  if(currentPlayer=="playerOne"){
+    throwsOne ++;
+    if (throwsOne % 3 ==0){
+      let avg = ((startScore - parseInt(document.getElementById(calculateCurrPlayer()).innerHTML))/(throwsOne))*3;
+      let avgRound = avg.toFixed(2);
+      document.getElementById('averageOne').innerHTML = "Avg: " + avgRound.toString();
+    }
+    }else{
+    throwsTwo ++;
+    if(throwsTwo % 3 == 0){
+      let avg = ((startScore - parseInt(document.getElementById(calculateCurrPlayer()).innerHTML))/(throwsTwo))*3;
+      let avgRound = avg.toFixed(2);
+      document.getElementById('averageTwo').innerHTML = "Avg: " + avgRound.toString();
+    }
+  }
+
 }
