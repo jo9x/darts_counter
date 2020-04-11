@@ -86,10 +86,10 @@ function checkForWin(){
   if((parseInt(document.getElementById(calculateCurrPlayer()).innerHTML))==0){
     if(calculateCurrPlayer() == 'scoreOne'){
       let avg = ((startScore/throwsOne)*3);
-      document.getElementById('averageOne').innerHTML = "Avg: "+avg.toFixed(2);
+      document.getElementById('averageOne').innerHTML = "Avg: "+avg.toFixed(1);
     }else{
       let avg = ((startScore/throwsTwo)*3);
-      document.getElementById('averageTwo').innerHTML = "Avg: "+avg.toFixed(2);
+      document.getElementById('averageTwo').innerHTML = "Avg: "+avg.toFixed(1);
     }
     alert("Congratulations! You won the Game! ");
   }
@@ -106,7 +106,7 @@ function checkForBust(){
         throwsOne = throwsOne + (3-(throwsOne%3));
       }
       let avg = ((startScore - player)/(throwsOne))*3;
-      let avgRound = avg.toFixed(2);
+      let avgRound = avg.toFixed(1);
       document.getElementById('averageOne').innerHTML = "Avg: " + avgRound.toString();
     }
     else{
@@ -115,7 +115,7 @@ function checkForBust(){
       throwsTwo = throwsTwo + (3-(throwsTwo%3));
       }
       let avg = ((startScore - player)/(throwsTwo))*3;
-      let avgRound = avg.toFixed(2);
+      let avgRound = avg.toFixed(1);
       document.getElementById('averageTwo').innerHTML = "Avg: " + avgRound.toString();
     }
     var diffToNextRound = throwCounter%3;
@@ -130,14 +130,14 @@ function calculateAverage(){
     throwsOne ++;
     if (throwsOne % 3 ==0){
       let avg = ((startScore - parseInt(document.getElementById(calculateCurrPlayer()).innerHTML))/(throwsOne))*3;
-      let avgRound = avg.toFixed(2);
+      let avgRound = avg.toFixed(1);
       document.getElementById('averageOne').innerHTML = "Avg: " + avgRound.toString();
     }
     }else{
     throwsTwo ++;
     if(throwsTwo % 3 == 0){
       let avg = ((startScore - parseInt(document.getElementById(calculateCurrPlayer()).innerHTML))/(throwsTwo))*3;
-      let avgRound = avg.toFixed(2);
+      let avgRound = avg.toFixed(1);
       document.getElementById('averageTwo').innerHTML = "Avg: " + avgRound.toString();
     }
   }
