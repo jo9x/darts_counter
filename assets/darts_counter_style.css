@@ -53,3 +53,10 @@ button{
   border-color:#204014
 
 }
+.wrapper{
+   text-align: center;
+}
+.confButton{
+  position: absolute;
+  left: 38%
+}
