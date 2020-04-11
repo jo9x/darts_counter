@@ -20,7 +20,7 @@ h1{
   font-size: 40px;
   font-family: Tahoma, Geneva, sans-serif;
   font-weight: bold;
-  color: rgba(70,255,0,0.9);
+  color: orange;
   text-align: center;
 }
 /*
@@ -46,10 +46,17 @@ button{
   display: block;
   height:50px;
   width: 100%;
-  background-color: rgba(5,247,255,0.8);
+  background-color: yellow;
   font-size: 25px;
   border-radius: 8px;
   outline: none;
   border-color:#204014
 
+}
+.wrapper{
+   text-align: center;
+}
+.confButton{
+  position: absolute;
+  left: 38%
 }

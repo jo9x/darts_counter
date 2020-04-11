@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>Darts Counter</title>
+<link rel="icon" type="image/vnd.microsoft.icon" href="assets/favicon.ico">
 <link rel="stylesheet" type="text/css" href="assets/darts_counter_style.css">
 <script type="text/javascript" src="assets/darts_counter_script.js"></script>
 </head>
@@ -10,6 +11,7 @@
 <script src= "https://code.jquery.com/jquery-1.11.1.js"></script>
 <script type="text/javascript">
   var currentPlayer = "playerOne";
+  var sound = new Audio('assets/sound.mp3');
 // This part is vor synchronizing the score between clients
   $(function(){
     var socket = io();
@@ -17,29 +19,42 @@
 
     function updateScore(e){
       var playerScore = '';
+      var playerAverage = '';
       if(currentPlayer=="playerOne"){
         playerScore = 'scoreOne';
-      }else{playerScore = 'scoreTwo';}
+        playerAverage = 'averageOne';
+      }else{
+        playerScore = 'scoreTwo';
+        playerAverage = 'averageTwo';
+      }
       var currentScore = document.getElementById(playerScore).innerHTML;
+      var currentAverage = document.getElementById(playerAverage).innerHTML;
+      //concat the score and average cause only one message is valid
+      var message = currentScore + '//' + currentAverage;
       e.preventDefault();
-      socket.emit('score change',currentScore);
+      socket.emit('score change',message);
       return false;
     }
 
     socket.on('score change',function(msg){
+      sound.play();
       var playerScore = '';
+      var playerAverage = '';
       if(currentPlayer=="playerOne"){
         playerScore = 'scoreOne';
+        playerAverage = 'averageOne';
         document.getElementById('playerTwo').style.color = "red";
-        document.getElementById('playerOne').style.color = "green";
+        document.getElementById('playerOne').style.color = "orange";
         currentPlayer = "playerTwo";
       }else{
         playerScore = 'scoreTwo';
+        playerAverage = 'averageTwo';
         document.getElementById('playerOne').style.color = "red";
-        document.getElementById('playerTwo').style.color = "green";
+        document.getElementById('playerTwo').style.color = "orange";
         currentPlayer = "playerOne";
       }
-      document.getElementById(playerScore).innerHTML = msg;
+      document.getElementById(playerScore).innerHTML = msg.split('//')[0];
+      document.getElementById(playerAverage).innerHTML = msg.split('//')[1];
     });
 
     socket.on('user join',function(msg){
@@ -58,8 +73,8 @@
   <div id="playerTwo" class="grid-item-display"></div>
   <div id ="scoreOne" class="grid-item-display"></div>
   <div id ="scoreTwo" class="grid-item-display"></div>
-  <!--<div id ="averageOne" class="grid-item-display">Avg: 0</div>-->
-  <!--<div id ="averageTwo" class="grid-item-display">Avg: 0</div>-->
+  <div id ="averageOne" class="grid-item-display">Avg: 0.0</div>
+  <div id ="averageTwo" class="grid-item-display">Avg: 0.0</div>
 </div>
 <!--The section displaying the input buttons-->
 <div class="grid-container-buttons">
@@ -87,14 +102,15 @@
   <div class="grid-item-buttons"><button id="bD" type="button">Double</button></div>
   <div class="grid-item-buttons"><button id="bT" type="button">Triple</button></div>
   <div class="grid-item-buttons"><button id="b0" type="button">Miss</button></div>
-  <div> <button id="bConf" type="button">Confirm</button> </div>
-
   </div>
+  <div class="wrapper"> <button class = "confButton" style="background:#19bf1c;width:25%;margin-top:10px" id="bConf" type="button">Confirm</button> </div>
+
 
   </div>
 
   </div>
 </div>
+<div style="color:white">Icons made by <a href="https://www.flaticon.com/authors/freepik" style="color:white"  title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" style="color:white" title="Flaticon">www.flaticon.com</a></div>
 
 </body>
 </html>
