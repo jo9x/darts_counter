@@ -5,7 +5,7 @@ var lastScoreOne = 0;
 var lastScoreTwo = 0;
 var avgOne = 0;
 var avgTwo = 0;
-var startScore = 30;
+var startScore = 501;
 
 //used for calculating the average
 var throwsOne = 0;
@@ -36,8 +36,8 @@ function addListenerToButtons(){
   document.getElementById('b25').addEventListener("click",function(){reduceScore(this.id)});
   document.getElementById('b0').addEventListener("click",function(){reduceScore(this.id)});
   //triple and double
-  document.getElementById('bD').addEventListener("click",function(){factor = 2;});
-  document.getElementById('bT').addEventListener("click",function(){factor = 3;});
+  document.getElementById('bD').addEventListener("click",function(){factor = 2;this.style.background='red';});
+  document.getElementById('bT').addEventListener("click",function(){factor = 3;this.style.background='red';});
 
 }
 
@@ -63,7 +63,8 @@ function reduceScore(buttonID){
       checkForBust();
       checkForWin();
 
-
+      document.getElementById('bD').style.background = "yellow";
+      document.getElementById('bT').style.background = "yellow";
       factor = 1;
       throwCounter ++;
     }
@@ -140,5 +141,7 @@ function calculateAverage(){
       document.getElementById('averageTwo').innerHTML = "Avg: " + avgRound.toString();
     }
   }
+
+
 
 }
