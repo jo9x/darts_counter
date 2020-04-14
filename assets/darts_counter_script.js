@@ -41,7 +41,7 @@ function addListenerToButtons(){
 
 }
 
-//reduce Score by thrown value
+//reduce Score by thrown valueeee
 function reduceScore(buttonID){
     //keeping track of the rounds played
     if((throwCounter%3==0)&&(throwCounter!=0)){
